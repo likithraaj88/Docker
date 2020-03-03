@@ -1,0 +1,153 @@
+1. To check docker version
+	docker --version
+	docker version (Complete  details)
+
+2. To get the complete information of the docker engine
+	docker info
+
+3. To check existing docker images on the box
+	docker images
+
+3.1 To check the history of image
+	docker history <imageName>
+
+3.2 To copy/tag image
+	docker tag <source_image> <TargetImage>
+	Eg: docker tag mysql mysql:test
+
+4. To know all the docker commands
+	docker
+
+5. To pull docker image
+	docker pull hello-world
+
+6. To execute docker image
+	docker container run -p <Host machine port>:<Port mentioned in the docker file> <imagename>:<tagId>
+	docker container run -p 9090:8080 tomcatsamplewebapp:3 
+
+7. To run ngnix container
+	docker container run --publish 80:80 nginx
+
+8. To execute conatainer in a detach mode or background
+	docker container run --publish 80:80 --detach nginx	
+
+9. To list running containers
+	docker container ls
+
+10. To stop container in docker
+	docker container stop <container_id>
+		container Id can be obtained when we execute "docker container ls"
+
+11. To list all running/stopped containers
+	docker container ls -a
+
+12. To start an already existing container which is Exited
+	docker container start <containerId>
+
+13. To name a container
+	docker container run --name <ImageName>
+	Eg: docker container run --publish 8081:80 --detach --name webhost8081 ngnix
+
+14. To get logs of a particular container
+	docker container logs <container_Name>
+	docker container logs <container_Id>
+
+15. To get the process running inside the containers
+	docker container top <container_id>
+
+16. To remove all unused containers 
+	docker container rm (container ids separated by space)
+
+17. To remove running container
+	docker container rm -f <container_id>
+
+18. Assignment: To pull mysql image
+	docker container run --publish 8080:80 --env MYSQL_RANDOM_ROOT_PASSWORD=yes  --detach --name Mysql mysql
+
+19. To get the details of the running container
+	This command is used to debug the container details
+	docker conatiner inspect <containerid> or <containerName>
+
+20. To find the resource consumption of all running containers
+	docker conatiner stats
+
+21. To switch to interactive mode
+	docker container run -it --name webproxy nginx bash
+
+22. To list all the files inside the conatiner
+	ls -lrt
+
+23. To exit from the conatiner terminal
+	exit
+
+24. To run commands inside the running container
+	docker container exec -it <containerid> 
+
+	Eg: To create a dir called likith inside the running container
+	 docker container exec -it <containerid> touch /tmp/likith
+
+25. To open an already running container in an interactive mode
+	docker container exec -it <containerid> bash
+
+
+26. To download package lists from the repositories and updates them to get information on the newest versions
+	 apt-get update
+
+27. To install curl
+	apt-get install curl
+
+28. To view the webpage from the container
+	curl "https://www.google.com/"
+
+29. To check the port of a container
+	docker container port <containerid>
+
+30. To check the IP address of the running container
+	docker container inspect -f '{{.NetworkSettings.IPAddress}}' <containerid>
+
+31. To check all networks
+	docker network ls
+
+32. To check only bridge network
+	docker network ls -f driver=bridge
+
+33. To check only the network Ids of all network	
+	docker network ls --format "{{.Driver}}:{{.ID}}"
+
+
+34. To inpsect the network
+	docker network inspect <networkId>
+
+35. To create a new network
+	docker network create <networkname>
+	Eg: docker create create mynetwork
+	Note: By default we create a bridge	
+
+36. To connect anexisting container to a new network
+	docker network connect <networkId> <containerId>
+
+37. To diconnect a container from the network
+	docker network disconnect <networkId> <containerId>
+
+38. To run a image on a particular network
+	docker container run -d --name <any name> --network <networkname> <image name>
+	Eg: docker container run -d --name my_nginx1 --network mynetwork nginx:alipne 
+
+39. Docker file Instructions
+	FROM
+	LABEL
+	RUN
+	CMD
+	EXPOSE
+	ADD
+	VOLUME
+	WORKDIR
+
+40. How to build a custom docker image
+	docker image build -t <imageName>:<version> /path
+	Eg:docker image build -t customnginx:0.0.1 .
+
+41. How to push a docker image to hub.docker.com from windows
+	docker push <dockerid>/
+	
+
