@@ -3,7 +3,7 @@
 	docker version (Complete  details)
 
 2. To get the complete information of the docker engine
-	docker info
+	docker info - This gives info about containers, swarm etc..
 
 3. To check existing docker images on the box
 	docker images
@@ -120,10 +120,10 @@
 
 35. To create a new network
 	docker network create <networkname>
-	Eg: docker create create mynetwork
+	Eg: docker network create mynetwork
 	Note: By default we create a bridge	
 
-36. To connect anexisting container to a new network
+36. To connect an existing container to a new network
 	docker network connect <networkId> <containerId>
 
 37. To diconnect a container from the network
@@ -148,6 +148,105 @@
 	Eg:docker image build -t customnginx:0.0.1 .
 
 41. How to push a docker image to hub.docker.com from windows
-	docker push <dockerid>/
+	docker push <hub-user>/<repo-name>:<tag>
+		
+42. How to create voulmes
+
+43. How to view available volumes
+	docker volumes ls
+
+44. How to create a file from terminal
+	touch samplefilename
+
+45. How to check the file permissions
+	ls -lrt
+	All the files will be listed with the right permissions
+
+46. How to provide a file with read and write permission
+	chmod 777 <filename>
+
+47. How to define volume while creating a container
+	Syntax:	docker run -d --name=<nameOfContainer> --mount source=<nameOfVolume>,destination=<pathOnHostMachine>,readonly nginx:latest
+	Example:docker run -d --name=nginxtest --mount source=nginx-vol,destination=/usr/share/nginx/html,readonly nginx:latest
+
+48. How to map bind mount while creating a container
+	Syntax: docker container run -d --name <nameOfContainer> --mount type=bind,source =<pathOfHostFolder>,target=<pathOfContainer> <imageName>
+	Example: docker container run -d --name nginx --mount type=bind,source =$(pwd),target=/app nginx 
+
 	
+
+Swarm:
+49. How to initialize swarm
+	Method-1:docker swarm init
+
+	Method-2:docker swarm init --advertise-addr <IPaddress of the host machine where docker is installed>
+
+50. How to check docker swarm commands
+	docker swarm --help
+
+51. How to check docker service commands
+	docker service --help
+
+52. How to check docker services
+	docker service ls
+
+53. How to create a docker service
+	docker service create <image>
+	Eg: docker service create alpine ping www.google.com
+		The above command will create a service install alpine OS and ping www.google.com
+
+54. How to inspect docker service
+	docker service inspect <serviceName>
+
+55. How to identify running container for a service
+	docker service ps <serviceName>
+
+56. How to scale up the service
+	docker service update <serviceName> --replicas <NumberOfServices>
+
+57. How to remove a container running a service
+	docker conatiner rm -f <name>
+
+58. How to connect to a remote machine from terminal of a local machine
+	ssh root@<IPAddressOfRemoteMachine>
+
+59. How to designate a node as a manager node
+	docker swarm join-token manager
+	copy the output of the above command and execute in the nodes which should be designated as worker nodes.
+
+
+60. How to leave a node from swarm cluster 
+	docker swarm leave -f
+
+
+Swarm Network:
+--------------
+61. How to create a overlay network
+	docker network create -d overlay <networkName> 
+
+
+62. How to create a service on a overlay network
+	Syntax:	docker service create --name <userDefinedNameOfImage> --network <networkName> <ImageName>
+	Example: docker service create --name <drupal> --network <myOverLayNetwork> -p 80:80 drupal
+
+
+Stack:
+-------------
+63. docker stack --help
+
+64. How to deploy service using docker stack
+	docker stack deploy -c docker-compose.yml <serviceName>
+
+65. How to check the number of stack
+	docker stack ls
+
+66. How to check the number of services running inside a stack
+	docker stack ps <stackName>
+
+67. How to check the number of services and their replication status:
+	docker stack services <stackName>
+
+68. 
+
+
 
